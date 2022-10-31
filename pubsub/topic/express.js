@@ -12,7 +12,7 @@ const Express = async () => {
     // 3. create exchange
     // rabbitMQ has 4 exchange
     // exchange is where share mess to consumer from producer, do not change direactory producer->consumer
-    const nameExchange = "nodejs#";
+    const nameExchange = "nodejs_course";
 
     await channel.assertExchange(nameExchange, "topic", {
       durable: true,
@@ -27,7 +27,7 @@ const Express = async () => {
 
     // 5. binding: moi quan he giua exchange vs queue goi la binding
     // hieu non na no o giua
-    await channel.bindQueue(queue, nameExchange, ""); // tham so thu 3 la dieu kien
+    await channel.bindQueue(queue, nameExchange, "node_express.*"); 
 
     await channel.consume(queue, (msg) => {
       console.log("msg::", msg.content.toString());

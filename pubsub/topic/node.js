@@ -12,15 +12,13 @@ const Node = async ({ msg }) => {
     // 3. create exchange
     // rabbitMQ has 4 exchange
     // exchange is where share mess to consumer from producer, do not change direactory producer->consumer
-    const nameExchange = "nodejs";
-
+    const nameExchange = "nodejs_course";
     await channel.assertExchange(nameExchange, "topic", {
       durable: true,
     });
 
     // 4. Publish video
-    await channel.publish(nameExchange, "", Buffer.from(msg));
-
+    await channel.publish(nameExchange, msg, Buffer.from(msg));
     console.log(`Send ok :::${msg}`);
 
     setTimeout(() => {
